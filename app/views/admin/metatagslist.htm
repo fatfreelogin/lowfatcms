@@ -1,0 +1,35 @@
+<main id="main" class="main-page">
+  <div class="container">
+		<h1 class="my-4">Metatags</h1>
+	<div class="row">
+	  <div class="col-12 col-sm-6">
+		<table class="table table-striped table-bordered">
+		<thead><tr>
+		<td>id</td>
+		<td>metatag</td>
+		<td>active</td>
+		<td>delete</td>
+		</tr></thead>
+		<repeat group="{{ @metatags }}" value="{{ @metatag }}">
+		<tr onclick="window.document.location='/{{ @adminpage }}/metatags/{{ @metatag->id }}/pages';" style="cursor: pointer;">
+			<td>{{ @metatag->id }}</td>
+			<td>{{ @metatag->metatag }}</td>
+			<td>{{ @metatag->active }}</td>
+			<td><a href="{{ @adminpage }}/metatags/{{ @metatag->id }}/del">delete</a></td>
+		</tr>
+		</repeat>
+		</table>
+	  </div>
+	  <div class="col-12 col-sm-6">
+		<form method="post" action="">
+		  <div class="form-group">
+			<label class="control-label" for="metatag">Add metatag:</label>
+			<div><input type="text" class="form-control form-control-sm" name="metatag" id="metatag" /></div>
+		  </div>
+		  <input type="hidden" name="session_csrf" value="{{ @SESSION.csrf }}" />
+		  <input type="submit" class="btn btn-primary" value="submit">
+		</form>
+	  </div>
+	</div>
+  </div>
+</main>

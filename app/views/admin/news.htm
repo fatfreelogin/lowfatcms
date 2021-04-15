@@ -1,0 +1,76 @@
+<main id="main" class="main-page">
+  <div class="container">
+	<div class="row">
+	  <div class="col-12 ">
+	  <h1 class="my-4">Add news item</h1>
+		<check if="null!==@PARAMS.id">
+		<a href="/{{ @adminpage }}/news/{{ @PARAMS.id }}/delete" class="btn btn-danger pull-right delete_confirm">DELETE</a>
+		</check>
+		<check if="{{ isset(@message) }}">
+		<div class="alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Error:</span>
+			{{ @message | raw }}
+		</div>
+		</check>
+		<form action="" method="post">
+		  <div class="row">
+			<div class="col-12 col-sm-6">
+				<div class="form-group">
+				<label class="control-label" for="created_at">date (yyyy-mm-dd H:i:s)</label>
+				<div><input type="text" class="form-control form-control-sm" name="created_at" id="created_at"  data-validation="alphanumeric" data-validation-ignore="-_" value="<check if="{{ null!==@news->created_at }}"><true>{{ @news->created_at }}</true><false>{{ date('Y-m-d H:i:s') }}</false></check>" />
+				</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="spec">Type (dig in the code to add new types)</label>
+					<div>
+					<select name="spec">
+						<option value="news">company news</option>
+					</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="title">Title</label>
+					<div><input type="text" class="form-control form-control-sm" name="title" id="title" value="{{ @news->title }}" /></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="author">Author</label>
+					<div><input type="text" class="form-control form-control-sm" name="author" id="author" value="{{ @news->author }}" /></div>
+				</div>
+				<div class="form-group">
+				<label for="intro_text">Intro text (homepage)</label>
+				  <textarea class="form-control form-control-sm" name="intro_text">{{ @news->intro_text }}</textarea>
+				</div>
+				<div class="form-group">
+				<label for="full_article">News text</label>
+				  <textarea class="form-control form-control-sm" name="full_article">{{ @news->full_article }}</textarea>
+				</div>
+			</div>
+				
+			<div class="col-12 col-sm-6">
+				<div class="form-group">
+					<label class="control-label" for="link">site url (pagelink)</label>
+					<div><input type="text" class="form-control form-control-sm" name="link" id="link"  value="{{ @news->link }}" />
+					</div>
+				</div>			
+				<div class="form-group">
+				  <label for="thumbnail">thumbnail picture for company news (path from site root)</label>
+				  <input type="text" id="thumbnail" class="form-control form-control-sm" name="thumbnail" value="{{ @news->thumbnail }}" />
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="published">published</label><br>
+					<select name="published" id="published" class="form_control">
+						<option value=0>unpublished - will not show</option>
+						<option value=1<check if="{{ @news->published == 1 }}"> selected</check>>published</option>
+					</select>
+				</div>
+
+				<input type="hidden" name="session_csrf" value="{{ @SESSION.csrf }}" />
+				<input type="submit" class="btn btn-primary" value="submit">
+			</div>
+			</div>
+		</form>
+	  </div>
+	</div>
+  </div>
+</main>

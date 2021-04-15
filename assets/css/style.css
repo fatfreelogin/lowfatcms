@@ -1,0 +1,33 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444;
+}
+
+a {
+  color: #428bca;
+}
+
+a:hover {
+  color: #9eccf4;
+  text-decoration: none;
+}
+
+section {
+  padding: 60px 0;
+}
+
+#footer {
+  background: #dadada;
+  padding: 0 0 30px 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+#footer a {
+  color: #428bca;
+}
+
+#footer a:hover {
+  color: #9eccf4;
+  text-decoration: none;
+}

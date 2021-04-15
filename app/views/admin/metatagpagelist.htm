@@ -1,0 +1,23 @@
+<main id="main" class="main-page">
+  <div class="container">
+		<h1 class="my-4">Metatag: {{ @metatags[0]['metatagname'] }} used on these pages</h1>
+	<div class="row">
+	  <div class="col-12 col-sm-6">
+		<table class="table table-striped table-bordered">
+		<thead><tr>
+		<td>id</td>
+		<td>metatag</td>
+		<td>active</td>
+		</tr></thead>
+		<repeat group="{{ @metatags }}" value="{{ @metatag }}">
+		<tr onclick="window.document.location='/{{ @adminpage }}/page/{{ @metatag['id']  }}';" style="cursor: pointer;">
+			<td>{{ @metatag['id'] }}</td>
+			<td>{{ @metatag['alias'] }}</td>
+			<td>{{ @metatag['pagetitle'] }}</td>
+		</tr>
+		</repeat>
+		</table>
+	  </div>
+	</div>
+  </div>
+</main>

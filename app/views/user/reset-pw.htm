@@ -1,0 +1,26 @@
+<main id="main" class="main-page">
+  <section id="{{ @PARAMS.page_name }}" class="wow fadeIn">
+	<div class="container">
+		<div class="row">
+			<div class="col-12" id="main">
+			<h1 class="my-4">{{ ucfirst(@i18n_pw_request) }} </h1>
+<div class="row justify-content-md-center">
+	<div class="col-12 col-sm-6">
+		<check if="{{ isset(@message) }}"><include href="_error/_errormsg.htm" /></check>
+		<form action="" method="post" class="">
+		<p>{{ @i18n_lostpw | raw }}</p>
+		<div class="form-group">
+			<label class="control-label" for="email">{{ @i18n_email }} </label>
+			<div class="form-field"><input class="form-control input-lg" type="text" name="email" id="email" required autofocus /></div>
+		</div>
+		<input type="hidden" name="session_csrf" value="{{ @SESSION.csrf }}" />
+		<input class="btn bt-lg btn-primary" name="reset_pw" value="{{ @i18n_pw_request | raw }}" type="submit">
+		</form>
+	</div>
+</div>
+			</div>		
+			</div> 
+		</div> 
+	</div> 
+  </section>
+</main>

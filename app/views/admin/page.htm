@@ -1,0 +1,151 @@
+<main id="main" class="main-page">
+  <div class="container">
+	<div class="row">
+	  <div class="col-12">
+		<h1 class="my-4">Page</h1>
+		<check if="{{ isset(@message) }}">
+		<true>
+		<div class="row">
+		<div class="col-12">
+		<div class="alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  <span class="sr-only">Error:</span>
+			{{ @message | raw }}
+		</div>
+		</div>
+		</div>
+		</true>
+		</check>
+	  <check if="{{ isset(@PARAMS.id) }}">
+		<a href="{{ @page->alias }}.html" target="_blank" class="btn btn-primary btn-lg">Open page in new tab</a> 
+		<a href="/{{ @adminpage }}/page/{{ @PARAMS.id }}/delete" class="btn btn-danger float-right delete_confirm">DELETE PAGE</a></check>
+		<form action="" method="post">
+		  <div class="row">
+		  <div class="col-12 col-sm-4">
+			  <div class="form-group">
+				<label class="control-label" for="alias">Page name (url - unique, can't contain spaces)</label>
+				<div><input type="text" class="form-control form-control-sm" name="alias" id="alias" value="{{ @page->alias }}" required />
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="pagetitle">Page title (in site navigation)</label>
+				<div><input type="text" class="form-control form-control-sm" name="pagetitle" id="pagetitle" value="{{ @page->pagetitle }}" required />
+				</div>
+			  </div> 
+			  <div class="form-group">
+				<label class="control-label" for="pagetitle">Long page title (title on page)</label>
+				<div><input type="text" class="form-control form-control-sm" name="longtitle" id="longtitle" value="{{ @page->longtitle }}" required />
+				</div>
+			  </div> 
+			  <div class="form-group">
+				<label class="control-label" for="pagetitle">Page thumbnail (path to image)</label>
+				<div><input type="text" class="form-control form-control-sm" name="thumbnail" id="thumbnail" value="{{ @page->thumbnail }}" />
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="searchable">Searchable</label>
+				<div>
+				<select name="searchable" class="form-control form-control-sm">
+				<option value=1<check if="{{ @page->searchable }}==1"> selected</check>>Searchable</option><option value=0<check if="{{ @page->searchable }}==0"> selected</check>>NOT Searchable</option>
+				</select>
+				</div>
+			  </div>
+		  </div>
+		  <div class="col-12 col-sm-4">
+			  <div class="form-group">
+				<label for="parent" class="form-control-label">Parent page  (only if 'show in menu' is selected) </label>
+				<select id="parent" name="parent" class="form-control form-control-sm">
+				<option value=0>No parent (main menu)</option>
+					<repeat group="{{ @pages }}" value="{{ @p }}">
+					<option value={{ @p.id }}<check if="{{ @page->parent === @p.id}}"> selected</check>>{{ @p.pagetitle }} ({{ @p.id }})</option>
+					</repeat>		
+				</select>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="menuindex">Menu order</label>
+				<div><input type="number" class="form-control form-control-sm" name="menuindex" id="menuindex" value="{{ @page->menuindex }}" />
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="isfolder">Menu: show child pages</label>
+				<div>
+				<select name="isfolder" class="form-control form-control-sm">
+				<option value=0>Don't show child pages in menu</option>
+				<option value=1<check if="{{ @page->isfolder }}==1"> selected</check>>Show child pages in menu</option>
+				</select>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label for="hidemenu" class="form-control-label">Show in menu</label>
+				<select name="hidemenu" class="form-control form-control-sm">
+				<option value=1>Don't show in menu</option>
+				<option value=0<check if="{{ @page->hidemenu }}==0"> selected</check>>Show in menu</option>
+				</select>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="show_moreinfo">show "more info" button on page</label>
+				<div>
+				<select name="show_moreinfo" class="form-control form-control-sm">
+				<option value="0">don't show "more info contact us" buttons</option>
+				<option value="1"<check if="{{ @page->show_moreinfo }}==1 "> selected</check>>Show "More Info" buttons on page</option>
+				</select>
+				</div>
+			  </div>
+		  </div>
+		  <div class="col-12 col-sm-4">
+			  <div class="form-group">
+				<label class="control-label" for="published">Publish</label>
+				<div>
+				<select name="published" class="form-control form-control-sm">
+				<option value=1<check if="{{ @page->published ==1 }}"> selected</check>>Published</option><option value=0<check if="{{ @page->published ==0}} "> selected</check>>Not yet published</option>
+				</select>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="type">Page type</label>
+				<div>
+				<select name="type" class="form-control form-control-sm">
+				<option value="document">html page</option>
+				<option value="reference"<check if="{{ @page->type }}=='reference' "> selected</check>>reference (redirect - set content as page to redirect to)</option>
+				</select>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="metatags">Metatags</label>
+				<div>
+				<select name="metatags[]" id="metatags" class="form-control form-control-sm" multiple="multiple">
+				<repeat group="{{ @metatags }}" value="{{ @metatag }}"><option value="{{ @metatag['id'] }}"<check if="{{ @metatag['metatag_id']<>null }}"> selected</check>>{{ @metatag['metatag'] }}</option></repeat>
+				</select>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label" for="canonical">Canonical url (usefull for SEO)</label>
+				<div><input type="text" class="form-control form-control-sm" name="canonical" id="canonical" value="{{ @page->canonical }}" />
+				</div>
+			  </div> 
+		  </div>
+			<div class="col-12 ">
+			  <div class="form-group">
+				<label class="control-label" for="description">Page description</label>
+				<div><input type="text" class="form-control form-control-sm" name="description" id="description" value="{{ @page->description }}" />
+				</div>
+			  </div>
+			<div class="form-group col-12">
+			<label for="content">Content</label><br>
+			  <textarea id="content" name="content" class="form-control" rows="30">{{ @page->content }}</textarea>
+			</div>
+			</div>
+			<div class="form-group col-12">
+				<input type="hidden" id="page_id" name="page_id" value="{{ @page->id }}" /> 
+				<input type="hidden" name="session_csrf" value="{{ @SESSION.csrf }}" />
+				<div class="col-sm-offset-4 col-sm-6">
+						<input type="hidden" name="edit_page" value="edit_page" />
+						<button type="submit" class="btn btn-primary">Submit</button>
+				</div> 
+			</div>
+		  </div>
+		</form>
+	  </div>
+	</div>
+  </div>
+</main>

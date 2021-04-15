@@ -1,0 +1,16 @@
+  <main id="main">
+	<section id="s_content" class="s_content">
+	  <div class="container">
+	  <div class="row"><div class="col-12">
+		<h1>{{ @i18n_search_header }}</h1>
+		<form class="form-inline" method="post" action="search.html"><input class="form-control input-lg" type="text" name="search_for" placeholder="{{ @i18n_search_action }}" /><input type="submit" value="{{ @i18n_search_submit }}" class="btn btn-primary" />
+		<input name="session_csrf" type="hidden" value="{{ @SESSION.csrf }}">
+		</form>
+		</div></div>
+<check if="{{ null!==@search_results }}">
+	  <div class="row"><div class="col-12"><h2>{{ @i18n_search_results_header }}</h2><ul><repeat group="{{ @search_results }}" value="{{ @result }}"><li><a href="{{ @result['alias'] }}.html">{{ @result['pagetitle'] }}</a></li></repeat></ul>
+		</div></div>
+</check>
+	  </div>
+	</section>
+  </main>

@@ -1,0 +1,28 @@
+<main id="main" class="main-page">
+  <section id="{{ @PARAMS.page_name }}" class="wow fadeIn">
+	<div class="container">
+	  <div class="row justify-content-center">
+		<div class="col-12 col-sm-9 col-md-6 col-lg-4">
+			<h1 class="my-4">Account {{ @SESSION.username }}</h1>		<check if="{{ isset(@message) }}">
+<include href="{{ '_error/_'.@message_type.'msg.htm' }}" /></check>
+			<form action="" method="post" role="form" class="form">
+				<h3 class="mb-4">Change Password</h3>
+				<div class="form-group ">
+					<label class="control-label" for="password">Password</label>
+					<div class="form-field">
+					<input type="password" class="form-control form-control-sm " name="password" /></div>
+				</div>
+				<div class="form-group ">
+					<label class="control-label" for="pw_confirmation">Confirm Password</label>
+					<div class="form-field">
+					<input type="password" class="form-control form-control-sm " name="pw_confirmation" /></div>
+				</div>
+				<input type="hidden" name="edit" value="edit" />
+				<input type="hidden" name="session_csrf" value="{{ @SESSION.csrf }}" />
+			<div class="text-center"><button type="submit">Submit</button></div>
+			</form>	
+		</div> 
+	  </div> 
+	</div> 
+  </section>
+</main>

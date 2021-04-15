@@ -1,0 +1,12 @@
+  <main id="main">
+	<section id="main_content" class="main_content">
+	  <div class="container"><check if="{{ null!== @breadcrumbs && strlen(@breadcrumbs)>0 }}"><div class="crumbs float-right text-right">{{ @breadcrumbs | raw }}
+	  </div></check> 
+		<h1>{{ @page->longtitle }}</h1>
+		{{ @page->content | raw }}
+	<check if="{{ null!== @moreinfo_btn && @moreinfo_btn==true }}">
+		<div class="mt-5 w-100"><a class="more-info-btm btn btn-primary text-center w-100" href="contact.html?i={{ @page->longtitle }}">{{ @i18n_moreinfo_box }} {{ @page->longtitle }}?<br>{{ @i18n_contactinfo_box }}</a></div>
+	</check>
+	  </div>
+	</section>
+  </main>

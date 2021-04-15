@@ -1,0 +1,25 @@
+  <main id="main">
+	<section id="s_content" class="s_content">
+	  <div class="container">
+		<h1>{{ @page->longtitle }}</h1>
+		<div class="row">
+			<div class="col-12 col-sm-8">{{ @page->content | raw }}</div>
+			<div class="col-12 col-sm-4">
+				<div class="card-deck homenews">
+		<repeat group="{{ @news }}" value="{{ @item }}">
+		<div class="card">
+		  <div class="card-body"> 
+			<h4 class="card-title">{{ @item->title }}</h4>
+			<check if="{{ null!==@item->thumbnail && strlen(trim(@item->thumbnail))>0 }}"><div class="home-card-img d-flex flex-column justify-content-center"><check if="{{ @item->link <> '' }}"><a href="{{ @item->link }}"></check><img class="card-img-top" src="{{ @item->thumbnail }}" alt="{{ @item->title }}"><check if="{{ @item->link <> '' }}"></a></check></div></check>
+			{{ @item->intro_text | raw }} 
+			<check if="{{ strlen(trim(@item->full_article))>0 }}"><br><small><a href="/news/{{ @item->id }}">read more...</a></small></check>
+		  </div>
+		  <div class="card-footer">{{ date("d/m/Y",strtotime(@item->created_at)) }}</div>
+		</div>
+		</repeat> 
+				</div>
+			</div>
+		</div>
+	  </div>
+	</section>
+  </main>

@@ -1,0 +1,34 @@
+<include href="header.htm" />
+  <main id="main">
+	<section id="s_content" class="s_content">
+	  <div class="container">
+		<h1>{{ @i18n_error_header }}</h1>
+<switch expr="{{ @ERROR.code }}">
+	<case value="401" break="{{ TRUE }}">
+		<p>{{ @i18n_401 }}</p>
+	</case>
+	<case value="403" break="{{ TRUE }}">
+		<p>{{ @i18n_403 }}</p>
+	</case>
+	<case value="404" break="{{ TRUE }}">
+		<p>{{ @i18n_404 }}</p>
+	</case>
+	<case value="405" break="{{ TRUE }}">
+		<p>{{ @i18n_405 }}</p>
+	</case>
+	<case value="500" break="{{ TRUE }}">
+		<p>{{ @i18n_500 }}</p>
+	</case>
+	<default>
+		<p>{{ @i18n_other_error }}</p>
+	</default>
+</switch>
+	<check if="{{ @DEBUG ==3 }}"> {{ print_r(@ERROR) }}</check>
+	  </div>
+	</section>
+  </main>
+<include href="footer.htm" />
+
+<exclude>
+  <!-- {{ print_r(@ERROR) }} -->
+</exclude>
