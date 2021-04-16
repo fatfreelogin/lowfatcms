@@ -1,0 +1,12 @@
+{
+    "name": "fatfreelogin/lowfatcrm",
+    "require": {
+        "bcosca/fatfree": "^3.7",
+        "xfra35/f3-access": "^1.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "app"
+        }
+    }
+}

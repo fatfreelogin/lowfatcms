@@ -1,1 +1,6 @@
 *.afphoto
+vendor/
+tmp/*
+!tmp/.htaccess
+logs/*
+!logs/.htaccess

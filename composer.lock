@@ -1,0 +1,130 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "00f0c3ab000b235b642b955b05bc2b09",
+    "packages": [
+        {
+            "name": "bcosca/fatfree",
+            "version": "3.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bcosca/fatfree.git",
+                "reference": "62f40d88994b99a51cfba5556931e80e1bb64a8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bcosca/fatfree/zipball/62f40d88994b99a51cfba5556931e80e1bb64a8c",
+                "reference": "62f40d88994b99a51cfba5556931e80e1bb64a8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/base.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "A powerful yet easy-to-use PHP micro-framework designed to help you build dynamic and robust Web applications - fast!",
+            "homepage": "http://fatfreeframework.com/",
+            "support": {
+                "issues": "https://github.com/bcosca/fatfree/issues",
+                "source": "https://github.com/bcosca/fatfree/tree/3.7.3"
+            },
+            "time": "2020-12-13T12:52:53+00:00"
+        },
+        {
+            "name": "bcosca/fatfree-core",
+            "version": "3.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bcosca/fatfree-core.git",
+                "reference": "3e23ae05384b2f830e99c5888b94118819ed948b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bcosca/fatfree-core/zipball/3e23ae05384b2f830e99c5888b94118819ed948b",
+                "reference": "3e23ae05384b2f830e99c5888b94118819ed948b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "A powerful yet easy-to-use PHP micro-framework designed to help you build dynamic and robust Web applications - fast!",
+            "homepage": "http://fatfreeframework.com/",
+            "support": {
+                "issues": "https://github.com/bcosca/fatfree-core/issues",
+                "source": "https://github.com/bcosca/fatfree-core/tree/3.7.3"
+            },
+            "time": "2020-12-13T12:49:39+00:00"
+        },
+        {
+            "name": "xfra35/f3-access",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xfra35/f3-access.git",
+                "reference": "8ce44f68b06f9edd1f19be8f38f11cd7a9002962"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xfra35/f3-access/zipball/8ce44f68b06f9edd1f19be8f38f11cd7a9002962",
+                "reference": "8ce44f68b06f9edd1f19be8f38f11cd7a9002962",
+                "shasum": ""
+            },
+            "require": {
+                "bcosca/fatfree-core": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Route access control for the PHP Fat-Free Framework",
+            "homepage": "https://github.com/xfra35/f3-access",
+            "keywords": [
+                "F3",
+                "access control",
+                "fatfree",
+                "permissions"
+            ],
+            "support": {
+                "issues": "https://github.com/xfra35/f3-access/issues",
+                "source": "https://github.com/xfra35/f3-access/tree/v1.1.0"
+            },
+            "time": "2016-09-28T12:08:51+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}
