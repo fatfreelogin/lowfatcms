@@ -13,7 +13,7 @@ class AdminController extends Controller
 	*/
 	public function metatag_pages()
 	{
-		$prefix=$this->table_prefix;
+		$prefix=$this->f3->get("table_prefix");
 		$metatags=new MetaTags($this->db, $prefix);
 		$this->f3->set('metatags',$metatags->pages($this->f3->get("PARAMS.id")));	
 		$this->f3->set('view','admin/metatagpagelist.htm');
@@ -21,26 +21,24 @@ class AdminController extends Controller
 	
 	public function metatags()
 	{
-		$prefix=$this->table_prefix;
+		$prefix=$this->f3->get("table_prefix");
 
 		$metatags=new MetaTags($this->db, $prefix);
 		if($this->f3->VERB==="POST")
 		{
 			$metatags->add($this->f3->get("POST"));
 		}
-		$postfix="";
 
 		$this->f3->set('metatags',$metatags->all());	
 		$this->f3->set('view','admin/metatagslist.htm');
 	}
 	public function delete_metatag()
 	{
-		$prefix=$this->table_prefix;
-		$postfix="";
+		$prefix=$this->f3->get("table_prefix");
 
 		$metatags=new MetaTags($this->db, $prefix);
 		$metatags->delete($this->f3->get("PARAMS.id"));
-		$this->f3->reroute($this->f3->get("adminpage")."/metatags".$postfix); 
+		$this->f3->reroute($this->f3->get("adminpage")."/metatags"); 
 		
 	}
 	
@@ -49,8 +47,8 @@ class AdminController extends Controller
 	*/
 	public function news()
 	{	
-		$news=new News($this->db, $this->table_prefix);
-		$articles=new News($this->db, $this->table_prefix);
+		$news=new News($this->db, $this->f3->get("table_prefix"));
+		$articles=new News($this->db, $this->f3->get("table_prefix"));
 		
 		$this->f3->set('news',$news->all("news",0));
 		$this->f3->set('articles',$articles->latest(200,false,0));
@@ -59,7 +57,7 @@ class AdminController extends Controller
 	
 	public function delete_news()
 	{	
-		$news=new News($this->db, $this->table_prefix);
+		$news=new News($this->db, $this->f3->get("table_prefix"));
 		$news->delete($this->f3->get("PARAMS.id"));
 		$this->f3->reroute('/'.$this->f3->get("adminpage").'/news');
 	}
@@ -68,7 +66,7 @@ class AdminController extends Controller
 	{	
 		if($this->f3->VERB==="POST")
 		{
-			$news=new News($this->db, $this->table_prefix);
+			$news=new News($this->db, $this->f3->get("table_prefix"));
 			$news->add($this->f3->get("POST"));
 			$this->f3->reroute('/'.$this->f3->get("adminpage").'/news');
 		}
@@ -77,7 +75,7 @@ class AdminController extends Controller
 	
 	public function edit_news()
 	{	
-		$news=new News($this->db, $this->table_prefix);
+		$news=new News($this->db, $this->f3->get("table_prefix"));
 		$news->getById($this->f3->get('PARAMS.id'));
 		if($this->f3->VERB==="POST")
 		{
@@ -93,7 +91,7 @@ class AdminController extends Controller
 	*/
 	public function delete_user()
 	{	
-		$user=new User($this->db, $this->table_prefix);
+		$user=new User($this->db, $this->f3->get("table_prefix"));
 		if($user->delete($this->f3->get("PARAMS.id"))){
 			$this->f3->reroute('/'.$this->f3->get("adminpage").'/users');
 		}
@@ -104,7 +102,7 @@ class AdminController extends Controller
 	
 	public function users()
 	{	
-		$users = new User($this->db, $this->table_prefix);
+		$users = new User($this->db, $this->f3->get("table_prefix"));
 		$this->f3->set('users',$users->all());
 		$this->f3->set('js_imports','js_imports/admin/admin_tables.htm');
 		$this->f3->set('view','admin/users.htm');
@@ -128,7 +126,7 @@ class AdminController extends Controller
 		$id = $this->f3->get('PARAMS.id'); 
 		if($this->f3->VERB==='POST')
 		{
-			$users = new User($this->db, $this->table_prefix);
+			$users = new User($this->db, $this->f3->get("table_prefix"));
 			$pw = $this->f3->get('POST.password');
 			if(strlen($pw)===0)
 			{
@@ -168,7 +166,7 @@ class AdminController extends Controller
 		$id = $this->f3->get('PARAMS.id'); 
 		if($this->f3->VERB==="POST")
 		{
-			$users = new User($this->db, $this->table_prefix);
+			$users = new User($this->db, $this->f3->get("table_prefix"));
 			$pw = $this->f3->get('POST.password');
 			if(strlen(trim($pw))===0) {
 				$this->f3->clear('POST.password');
@@ -190,7 +188,7 @@ class AdminController extends Controller
 		}
 		else
 		{
-			$users = new User($this->db, $this->table_prefix);
+			$users = new User($this->db, $this->f3->get("table_prefix"));
 			$id = $this->f3->get('PARAMS.id'); 
 			$users->getById($id);
 			if($users->dry()) { 
@@ -207,21 +205,21 @@ class AdminController extends Controller
 	* manage filled out contact forms
 	*/
 	public function contact() {
-		$contact = new ContactForm($this->db, $this->table_prefix);
+		$contact = new ContactForm($this->db, $this->f3->get("table_prefix"));
 		$this->f3->set('contacts',$contact->all());
 		
 		$this->f3->set('view','admin/contact_list.htm');
 	}
 	
 	public function delete_contact() {
-		$contact = new ContactForm($this->db, $this->table_prefix);
+		$contact = new ContactForm($this->db, $this->f3->get("table_prefix"));
 		$id = $this->f3->get('PARAMS.id'); 
 		$contact->delete($id);
 		$this->f3->reroute('/'.$this->f3->get("adminpage")."/contact");
 	}
 	
 	public function show_contact() {
-		$contact = new ContactForm($this->db, $this->table_prefix);
+		$contact = new ContactForm($this->db, $this->f3->get("table_prefix"));
 		$id = $this->f3->get('PARAMS.id'); 
 		$contact->getById($id);
 		if($contact->dry()) {
@@ -238,7 +236,7 @@ class AdminController extends Controller
 	*/	
 	public function show_pages()
 	{
-		$prefix=$this->table_prefix;
+		$prefix=$this->f3->get("table_prefix");
 		$page = new Page($this->db, $prefix);
 		$this->f3->set('pages',$page->pages_with_parents($prefix));
 		$this->f3->set('js_imports',"/js_imports/admin/admin_tables.htm");
@@ -247,7 +245,7 @@ class AdminController extends Controller
 	
 	public function new_page()
 	{
-		$prefix=$this->table_prefix;
+		$prefix=$this->f3->get("table_prefix");
 
 		if($this->f3->VERB=="POST")
 		{
@@ -278,7 +276,7 @@ class AdminController extends Controller
 	public function edit_page()
 	{
 		$page_id=intval($this->f3->get('PARAMS.id')); //get page by pagename		
-		$prefix=$this->table_prefix;
+		$prefix=$this->f3->get("table_prefix");
 
 		$metatags=new \MetaTags($this->db, $prefix);
 		$page = new Page($this->db, $prefix);
@@ -313,7 +311,7 @@ class AdminController extends Controller
 	
 	public function delete_page()
 	{
-		$prefix=$this->table_prefix;
+		$prefix=$this->f3->get("table_prefix");
 
 		$page = new Page($this->db, $prefix);
 		if($page->delete($this->f3->get("PARAMS.id"))){
@@ -331,7 +329,7 @@ class AdminController extends Controller
 	{
 		if($this->f3->VERB=="POST")
 		{
-			$chunk = new Chunk($this->db, $this->table_prefix);
+			$chunk = new Chunk($this->db, $this->f3->get("table_prefix"));
 			$chunk->add($this->f3->get('POST'));
 			$this->f3->reroute('/'.$this->f3->get("adminpage").'/chunks');
 		}
@@ -340,14 +338,14 @@ class AdminController extends Controller
 	
 	public function chunks()
 	{
-		$chunk = new Chunk($this->db, $this->table_prefix);
+		$chunk = new Chunk($this->db, $this->f3->get("table_prefix"));
 		$this->f3->set('chunks',$chunk->all());
 		$this->f3->set('view','admin/chunks.htm');
 	}
 	
 	public function show_chunk()
 	{
-		$chunk = new Chunk($this->db, $this->table_prefix);
+		$chunk = new Chunk($this->db, $this->f3->get("table_prefix"));
 		if($this->f3->VERB=="POST")
 		{
 			$chunk->edit($this->f3->get('PARAMS.id'), $this->f3->get('POST'));
@@ -366,7 +364,7 @@ class AdminController extends Controller
 	
 	public function delete_chunk()
 	{
-		$chunk = new Chunk($this->db, $this->table_prefix);
+		$chunk = new Chunk($this->db, $this->f3->get("table_prefix"));
 		$chunk->delete($this->f3->get('PARAMS.id'));
 		$this->f3->reroute('/'.$this->f3->get("adminpage").'/chunks');
 	}

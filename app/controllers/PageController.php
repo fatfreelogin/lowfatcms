@@ -7,7 +7,6 @@ class PageController extends Controller
 		$prefix=$this->f3->get("table_prefix");
 		$this->f3->set('view','page/homepage.htm');
 		$page = new Page($this->db,$prefix);
-		$news = new News($this->db,$prefix);
 		
 		$pagename="index";
 		$page->getByPagename($pagename);
@@ -15,7 +14,10 @@ class PageController extends Controller
 		$this->f3->set('page',$page);
 		$this->f3->set('page_content',$this->parseChunks($page->content));
 		$this->f3->set('activemenulink',$pagename);
-		$this->f3->set('news', $news->latest(1,"news"));
+		if(isset($this->f3->showhomepagenews) && $this->f3->showhomepagenews) {
+			$news = new News($this->db,$prefix);
+			$this->f3->set('news', $news->latest(1,"news"));
+		}
 	}
 	
 	/**
