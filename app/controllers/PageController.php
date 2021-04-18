@@ -11,6 +11,9 @@ class PageController extends Controller
 		$pagename="index";
 		$page->getByPagename($pagename);
 		
+		if (strpos($page->content, '[[children') !== false) {
+			$page->content = $this->displayChildren($page);
+		}
 		$this->f3->set('page',$page);
 		$this->f3->set('page_content',$this->parseChunks($page->content));
 		$this->f3->set('activemenulink',$pagename);
@@ -67,6 +70,9 @@ class PageController extends Controller
 			if (strpos($page->content, '[[listpics') !== false) {
 				$page->content = $this->listpics($page->content);
 			}
+			if (strpos($page->content, '[[prevnext') !== false) {
+				$page->content = $this->prevnext($page);
+			}
 			if($page->parent!=0 && $page->hidemenu==0)
 			{
 				$crumbsarray=array();
@@ -112,6 +118,28 @@ class PageController extends Controller
 			},
 			$content);
 			return $out;
+	}
+	
+	/**
+	* add previous and next buttons to go to sibling pages
+	*/
+	private function prevnext($page)
+	{
+		$prevnext=new Page($this->db,$this->f3->get("table_prefix"));
+		$result = $prevnext->prevnext($page->parent,$page->menuindex);
+		if(count($result)===0) return $page->content;
+		if(count($result)===1) {
+			if($result[0]['menuindex'] > $page->menuindex) {
+				$out="<div class=\"row justify-content-between\"><div class=\"col-12 text-right\"><a href=\"".$result[0]['alias']."\" class=\"btn btn-primary\">".$result[0]['pagetitle']." ></a></div></div>";
+			}
+			else {
+				$out="<div class=\"row justify-content-between\"><div class=\"col-12 text-left\"><a href=\"".$result[0]['alias']."\" class=\"btn btn-primary\">< ".$result[0]['pagetitle']."</a></div></div>";
+			}
+		}
+		else {
+			$out="<div class=\"row justify-content-between\"><div class=\"col-6 text-left\"><a href=\"".$result[0]['alias']."\" class=\"btn btn-primary\">< ".$result[0]['pagetitle']."</a></div><div class=\"col-6 text-right\"><a href=\"".$result[1]['alias']."\" class=\"btn btn-primary\">".$result[1]['pagetitle']." ></a></div></div>";
+		}
+		return preg_replace("/\[\[prevnext\]\]/", $out, $page->content);
 	}
 	
 	/**
