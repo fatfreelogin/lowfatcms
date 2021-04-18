@@ -26,6 +26,14 @@
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script defer src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <check if="isset(@js_imports)"><include href="{{ @js_imports }}" /></check>
-
+<script>/* make dropdown links double-clickable - open parent page*/
+$('.navbar .dropdown > a').click(function() {
+ if (!$(this).hasClass("parent-clicked")) {
+    $(this).addClass("parent-clicked");
+  } else {
+    location.href = this.href;
+  }
+});
+</script>
 </body>
 </html>

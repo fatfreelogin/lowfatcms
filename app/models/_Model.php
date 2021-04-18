@@ -2,6 +2,7 @@
 
 class _Model extends DB\SQL\Mapper 
 {	
+	public $tableprefix;
 	public function __construct(DB\SQL $db, $table, $prefix=""){
 		$table=$prefix . $table;
 		parent::__construct($db, $table);
