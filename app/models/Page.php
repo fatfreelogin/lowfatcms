@@ -30,10 +30,9 @@ not allowed fields:
 		"canonical_en",
 		"canonical_nl",
 		"canonical_be");
-	
+		
 	public function __construct(DB\SQL $db, $tableprefix){
 		parent::__construct($db, 'site_content', $tableprefix);
-		$this->tableprefix=$tableprefix;
 	}
 
 	public function all() 
@@ -63,34 +62,21 @@ not allowed fields:
 	*/
 	public function getMenu()
 	{
-		/*$this->load('published=1 AND hidemenu=0',array('order'=>'menuindex ASC'));
-		return $this->query;*/
-		$sql="SELECT id, pagetitle, alias, parent, isfolder FROM ".$this->tableprefix."site_content WHERE published=1 AND hidemenu=0 ORDER BY menuindex ASC ";
-		$out=$this->db->exec($sql, array(':id'=>$id));
-		
-		return $out;
+		$this->load('published=1 AND hidemenu=0',array('order'=>'menuindex ASC'));
+		return $this->query;
 	}
 	
-	/**
-	* get all pages dor a page (parent_id )
-	*/
 	public function getChildren($id) {
 		$this->load(array('parent=? AND published=1 AND hidemenu=0',$id),array('order' => 'menuindex ASC, pagetitle ASC'));
 		return $this->query;
 	}
 	
-	/**
-	* get all pages linked to metatag:id
-	*/
 	public function getTagPages($id,$table_prefix) {
 		$sql="SELECT c.alias, c.pagetitle, c.longtitle, c.thumbnail FROM ".$table_prefix."site_content c LEFT OUTER JOIN ".$table_prefix."metatags_content m on m.content_id=c.id WHERE c.published=1 AND m.metatag_id=:id";
 		$out=$this->db->exec($sql, array(':id'=>$id));
 		return $out;
 	}
 	
-	/**
-	* add new page (admin)
-	*/
 	public function add($unsanitizeddata) 
 	{
 		$data=$this->sanitizeInput($unsanitizeddata, $this->allowed_fields);
@@ -100,9 +86,6 @@ not allowed fields:
 		return $this->get('_id');
 	}
 	
-	/**
-	* edit a page (admin)
-	*/
 	public function edit($id,$unsanitizeddata) 
 	{
 		$data=$this->sanitizeInput($unsanitizeddata, $this->allowed_fields);
@@ -112,18 +95,12 @@ not allowed fields:
 		$this->update();
 	}
 	
-	/**
-	* get page by id
-	*/
 	public function getById($id) 
 	{
 		$this->load(array('id=?',$id));
 		return $this->query;
 	}
 	
-	/**
-	* delete a page (admin)
-	*/
 	public function delete($id) 
 	{
 		$this->load(array('id=?',$id));
@@ -133,9 +110,10 @@ not allowed fields:
 	public function pages()
 	{
 		$result = $this->load();
+
 		if($this->dry()){return;}
-		$pages=$result->find(array('order'=>'hidemenu DESC, menuindex ASC'));
-		return $pages;
+		$products=$result->find(array('order'=>'hidemenu DESC, menuindex ASC'));
+		return $products;
 	}
 	
 	public function pages_with_parents($table_prefix)
@@ -144,19 +122,12 @@ not allowed fields:
 		$out=$this->db->exec($sql);
 		return $out;
 	}
-	
-	/**
-	* get breadcrumbs
-	*/
 	public function getCrumbs($id,$table_prefix)
 	{
 		$out=$this->db->exec("SELECT @r AS _id, ( SELECT @r := parent FROM ".$table_prefix."site_content  WHERE id = _id ) AS parent, ( SELECT alias FROM ".$table_prefix."site_content  WHERE id = _id ) AS parent_alias, (SELECT pagetitle FROM ".$table_prefix."site_content  WHERE id = _id ) AS parent_pagetitle, @l := @l + 1 AS level FROM ( SELECT @r := :id, @l := 0 ) vars, ".$table_prefix."site_content  h WHERE @r <> 0", array(':id'=>$id));
 		return $out;
 	}
 	
-	/**
-	* get page by alias (pagename - url)
-	*/
 	public function getByPagename($alias) {
 		$this->load(array('alias=?',$alias));
 		$this->copyTo('POST');
@@ -175,9 +146,7 @@ not allowed fields:
 		return $out;
 	}
 
-	/**
-	* get search results
-	*/
+	
 	public function search($searchterm,$table_prefix) 
 	{
 		$out=null;
