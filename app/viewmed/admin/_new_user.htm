@@ -1,0 +1,125 @@
+<include href="site_specific/adminmenu.htm" />
+<div class="row">
+
+<div class="col-lg-12">
+<div class="col-lg-10 col-lg-offset-1">
+
+<check if="{{ isset(@message) }}">
+    <true>
+	<div class="row alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+	{{ @message | raw }}
+	</div>
+	</true>
+</check>
+<h1 class="my-4">Nieuwe supergebruiker maken</h1>
+<form action="" method="post" class="form-horizontal">
+	<div class="form-group">
+		<div class="col-lg-12">
+        <label class="control-label" for="username">Username</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" id="username" value="{{ @POST.username }}" name="username" required />
+		</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-12">
+        <label class="control-label" for="registration">{{ @i18n_registration_code }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" id="registration" value="{{ @POST.registration }}" name="registration" required />
+		</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-12">
+        <label class="control-label" for="email">{{ @i18n_email }}</label>
+        <div class="form-field"><input type="email" class="form-control input-lg" id="email" value="{{ @POST.email }}" name="email" required />
+		</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-12">
+        <label class="control-label" for="advance_payment">User needs to pay in advance: </label>
+        <div class="form-field"><select name="advance_payment" class="form-control input-lg"><option value="1"<check if="{{ @POST.advance_payment == 1 }} "><true> selected</true></check>>Yes</option><option value="0" <check if="{{ @POST.advance_payment != 1}} "><true> selected</true></check>>No</option></select>
+		</div>
+		</div>
+	</div>
+	
+<h2>{{ @i18n_invoice_address }}</h2>
+	<div class="form-group">
+		<div class="col-lg-6">
+        <label class="control-label" for="company">{{ @i18n_company }} (indien van toepassing)</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" id="company" name="company" value="{{ @POST.company }}"  />
+		</div>
+		</div>
+		
+		<div class="col-lg-6">
+        <label class="control-label" for="vat_nr">{{ @i18n_vat_nr }} (indien van toepassing)</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" id="vat_nr" name="vat_nr" value="{{ @POST.vat_nr }}"  />
+		</div>
+		</div>
+	</div>
+		
+	<div class="form-group">
+		<div class="col-lg-6">
+        <label class="control-label" for="last_name">{{ @i18n_last_name }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" name="last_name" value="{{ @POST.last_name }}" required />
+		</div>
+		</div>
+		
+		<div class="col-lg-6">
+		<label class="control-label" for="first_name">{{ @i18n_first_name }}</label>
+		<div class=""><input type="text" class="form-control input-lg" name="first_name" value="{{ @POST.first_name }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-lg-6">
+        <label class="control-label" for="address">{{ @i18n_address }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" id="address" name="address" value="{{ @POST.address }}" required />
+		</div>
+		
+		</div>
+		<div class="col-lg-6">  
+        <label class="control-label" for="address2">{{ @i18n_number }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" id="address2" name="address2" value="{{ @POST.address2 }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-lg-6">  
+        <label class="control-label" for="zip">{{ @i18n_zip }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" data-validation="length"  data-validation-length="min4" id="zip" name="zip" value="{{ @POST.zip }}" required />
+		</div>
+		</div>
+		<div class="col-lg-6">  
+        <label class="control-label" for="city">{{ @i18n_city }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" name="city" value="{{ @POST.city }}" required />
+		</div>	  
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-lg-12">
+        <label class="control-label" for="tel">{{ @i18n_telephone }}</label>
+        <div class="form-field"><input type="text" class="form-control input-lg" name="tel" value="{{ @POST.tel }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+				<input type="hidden" name="country" value="België" />
+				<input type="hidden" name="create" value="create" />
+				<input type="hidden" name="user_type" value="10" />
+
+				<div class="form-group">
+					<div class="cart-btn">
+						<input value="{{ @i18n_submit }}" class="btn order-btn login" name="create" id="create" type="submit">
+					</div>
+				</div>
+</form>
+
+</div>
+</div>
+</div>

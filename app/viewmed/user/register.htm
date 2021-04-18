@@ -1,0 +1,30 @@
+<div class="row">
+
+<div class="col-lg-12">
+<div class="col-lg-10 col-lg-offset-1">
+
+<h1>No access</h1>
+<check if="{{ isset(@PARAMS.message) }}">
+    <true>
+	<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+	{{ @message | raw }}
+	</div>
+	</true>
+</check>
+<p>Please log in</p>
+<form action="" method="post" class="form-signin">
+
+    <input type="text" class="form-control" placeholder="Email" name="username" id="username" required autofocus />
+    <input type="password" class="form-control" placeholder="Password" name="password" id="password" required />
+    <input type="password" class="form-control" placeholder="Confirm password" name="confirm" id="confirm" required />
+	<input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+	<input type="hidden" name="login" value="login" />
+	<button class="btn btn-lg btn-primary btn-block" type="submit">{{ @i18n_login }} </button>
+
+</form>
+
+</div>
+</div>
+</div>

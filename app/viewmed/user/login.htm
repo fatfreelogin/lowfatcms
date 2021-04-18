@@ -1,0 +1,27 @@
+<main id="main" class="main-page">
+  <section id="{{ @PARAMS.page_name }}">
+	<div class="container">
+	  <div class="row justify-content-center">
+		<div class="col-12 col-sm-9 col-md-6 col-lg-4">
+		<h1 class="my-4">Login </h1>
+<check if="{{ isset(@message) }}"><include href="_error/_errormsg.htm" /></check>
+<check if="{{ isset(@info_msg) }}"><include href="_error/_infomsg.htm" /></check> 
+		<form action="" method="post" role="form" class="form">
+			<div class="form-group"><label class="control-label" for="username">{{ @i18n_username }}</label>
+			<div class="form-field"><input class="form-control input-lg" type="text" placeholder="Username" name="username" id="username" required autofocus /></div>
+			</div>
+			<div class="form-group"><label class="control-label" for="password">{{ @i18n_password }}</label>
+			<div class="form-field"><input class="form-control input-lg" type="password" placeholder="Password" name="password" id="password" required /></div>
+			</div>
+			<input type="hidden" name="session_csrf" value="{{ @SESSION.csrf }}" />
+			<div class="text-center"><button class="btn btn-primary" type="submit">{{ @i18n_submit }}</button></div>
+		</form>
+		<div class=" mt-5">
+		  <div class="float-left"><small><a class="text-secondary" href="/lostpassword">{{ @i18n_password_forgotten }}</a></small></div>
+		  <div class="float-right"><small><a class="text-secondary" href="/register">{{ @i18n_create_user }}</a></small></div>
+		</div>
+		</div>
+	  </div>
+	</div>
+  </section>
+</main>

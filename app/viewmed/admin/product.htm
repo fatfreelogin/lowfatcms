@@ -1,0 +1,105 @@
+<div class="container">
+<h1 class="my-4">Product</h1>
+<check if="{{ isset(@message) }}">
+<true>
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+	{{ @message | raw }}
+</div>
+</true>
+</check>
+<form action="" method="post">
+<div class="row">
+	<div class="col-12 col-sm-6">
+	  <div class="form-group">
+        <label class="control-label" for="page_name">{{ @i18n_page_name }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="page_name" id="page_name"  data-validation="alphanumeric" data-validation-ignore="-_" value="{{ @page->page_name }}" required />
+		</div>
+	  </div>
+	</div>
+	<div class="col-12 col-sm-6">
+	  <div class="form-group">
+        <label class="control-label" for="price_ex_vat">{{ @i18n_price_ex_vat }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="price_ex_vat" id="price_ex_vat" value="{{ @page->price_ex_vat }}"  />
+		</div><br />
+        <label class="control-label" for="vat">{{ @i18n_vat }}</label>
+		<select class="form-control form-control-sm" name="vat" id="vat">
+		  <option value="0.21"<check if="{{ @page->vat }} == 0.21"> selected</check>>21%</option>
+		  <option value="0.06"<check if="{{ @page->vat }} == 0.06"> selected</check>>6%</option>
+		</select><br />
+        <label class="control-label" for="price">{{ @i18n_price }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="price" id="price" value="{{ @page->price }}"  />
+		</div>
+		<div class="col-12 col-sm-4"><label for="free_shipping" class="form-check-label"> <input type="checkbox" class="form-check-input" name="free_shipping" id="free_shipping" value="1" <check if="{{ @page->free_shipping ==1}}"> <true> checked</true></check> /> {{ @i18n_free_shipping }}</label>
+		</div>
+	  </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-12 col-sm-4">
+	<h3>Nederlands</h3>
+	  <div class="form-group">
+        <label class="control-label" for="page_title">{{ @i18n_page_title }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="page_title" id="page_title" value="{{ @page->page_title }}" required />
+		</div>
+	  </div>
+	  <div class="form-group">
+        <label class="control-label" for="short_description">{{ @i18n_short_description }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="short_description" id="short_description" value="{{ @page->short_description }}" required />
+		</div>
+	  </div>
+	<div class="form-group col-12">
+	<label for="content">Content</label>
+	  <textarea id="content" name="content">{{ @page->content }}</textarea>
+	</div>
+	</div>
+
+	<div class="col-12 col-sm-4">
+	<h3>Français</h3>
+	  <div class="form-group">
+        <label class="control-label" for="page_title_fr">{{ @i18n_page_title }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="page_title_fr" id="page_title_fr" value="{{ @page->page_title_fr }}" required />
+		</div>
+	  </div>
+	  <div class="form-group">
+        <label class="control-label" for="short_description">{{ @i18n_short_description }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="short_description_fr" id="short_description_fr" value="{{ @page->short_description_fr }}" required />
+		</div>
+	  </div>
+	<div class="form-group col-12">
+	<label for="content_fr">Content</label>
+	  <textarea id="content_fr" name="content_fr">{{ @page->content_fr }}</textarea>
+	</div>
+	</div>
+	<div class="col-12 col-sm-4">
+	<h3>English</h3>
+	  <div class="form-group">
+        <label class="control-label" for="page_title_en">{{ @i18n_page_title }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="page_title_en" id="page_title_en" value="{{ @page->page_title_en }}" required />
+		</div>
+	  </div>
+	  <div class="form-group">
+        <label class="control-label" for="short_description_en">{{ @i18n_short_description }}</label>
+        <div><input type="text" class="form-control form-control-sm" name="short_description_en" id="short_description_en" value="{{ @page->short_description_en }}" required />
+		</div>
+	  </div>
+	<div class="form-group col-12">
+	<label for="content_en">Content</label>
+	  <textarea id="content_en" name="content_en">{{ @page->content_en }}</textarea>
+	</div>
+	</div>
+  </div>
+
+	<div class="form-group col-12">
+		<input type="hidden" name="is_a_product" id="is_a_product" value="1" />
+		<input type="hidden" id="page_id" name="page_id" value="{{ @page->id }}" /> 
+		<input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+		<input type="hidden" id="linked_product" name="linked_product" value="0" />
+		<div class="col-sm-offset-4 col-sm-6">
+				<input type="hidden" name="edit_page" value="edit_page" />
+				<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> {{ @i18n_submit }}</button>
+		</div>
+	</div>
+</form>
+	</div>

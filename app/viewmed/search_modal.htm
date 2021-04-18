@@ -1,0 +1,18 @@
+<div id="SearchModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{ @i18n_search_header }}</h4>
+			</div>
+			<div class="modal-body">
+				<p class="lead text-center"></p>
+				<div class="lead text-center"><form class="form-inline" method="post" action="search.html"><input type="text" class="form-control input-lg" name="search_for" placeholder="{{ @i18n_search_action }}" /><input type="submit" value="{{ @i18n_search_submit }}" class="btn btn-primary" />
+				<input name="session_csrf" type="hidden" value="{{ @SESSION.csrf }}">
+			</form></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ @i18n_search_close }}</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+<h1>{{ @i18n_create_user }}</h1>
+<div class="row">
+<div class="col-xs-12 col-md-6 col-md-offset-3">
+	<form action="" method="post" class="form-horizontal">
+
+	<div class="form-group">
+		<div class="col-xs-6">
+        <label class="control-label" for="last_name">{{ @i18n_last_name }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" name="last_name" value="{{ @POST.last_name }}" required />
+		</div>
+		</div>
+		
+		<div class="col-xs-6">
+		<label class="control-label" for="first_name">{{ @i18n_first_name }}</label>
+		<div class=""><input type="text" class="form-control input-sm" name="first_name" value="{{ @POST.first_name }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-xs-12">
+        <label class="control-label" for="sis_card_number">{{ @i18n_sis_card_number }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" id="sis_card_number" name="sis_card_number" value="{{ @POST.sis_card_number }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-xs-12">
+        <label class="control-label" for="address">{{ @i18n_address }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" id="street" name="street" value="{{ @POST.street }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-xs-6">  
+        <label class="control-label" for="postal_code">{{ @i18n_zip }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" data-validation="length"  data-validation-length="min4" id="postal_code" name="postal_code" value="{{ @POST.postal_code }}" required />
+		</div>
+		</div>
+		<div class="col-xs-6">  
+        <label class="control-label" for="city">{{ @i18n_city }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" name="city" value="{{ @POST.city }}" required />
+		</div>	  
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-xs-12">
+        <label class="control-label" for="tel">{{ @i18n_country }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" name="country" id="country" value="{{ @POST.country }}" required />
+		</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-xs-12">
+        <label class="control-label" for="tel">{{ @i18n_telephone }}</label>
+        <div class="form-field"><input type="text" class="form-control input-sm" name="tel" value="{{ @POST.tel }}" required />
+		</div>
+		</div>
+	</div>
+	
+	<input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+				<input type="hidden" name="create" value="create" />
+				<input type="hidden" name="user_id" value="{{ @POST.id }}" />
+
+				<div class="form-group">
+					<div class="cart-btn">
+						<input value="{{ @i18n_submit }}" class="btn order-btn login" name="create" id="create" type="submit">
+					</div>
+				</div>		
+	</form>
+</div>

@@ -1,0 +1,175 @@
+<include href="site_specific/adminmenu.htm" />
+
+<check if="{{ isset(@message) }}">
+<true>
+	<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+	{{ @message | raw }}
+	</div>
+
+</true>
+</check>
+<a href="/admin/users/{{ @PARAMS.id }}/prices" class="btn btn-success" role="button">Change User Prices</a>
+
+<form action="{{ @BASE }}" method="post" class="form-horizontal">
+  <div id="tabs-1">
+  <h1 class="my-4">User: {{ @POST.username }} (<em><check if="{{ @POST.user_type }}==1"><true>Standard user</true>
+  <false><check if="{{ @POST.user_type }}==10"><true>Professional User</true><false>Administrator</false></check></false>
+  </check></em>)</h1>
+  <h4>Activated: <select name="activated">
+	<option value=1<check if="{{ intval(@POST.activated)===1 }}"> selected</check>>Yes</option>
+	<option value=0<check if="{{ intval(@POST.activated)===0 }}"> selected</check>>No</option>
+  </select></h4>
+  <h4>Registration code: <a href="/admin/invoices/code/{{ @POST.registration }}">{{ @POST.registration }}</a>  <br>
+<label class="control-label col-sm-2" for="registration">Change code:</label><div class="col-sm-3"><input type="text" class="form-control" id="registration" name="registration" value="{{ @POST.registration }}"  /></div><br></h4>
+
+  <h4>Pay in advance: <select name="advance_payment"><option value="1">Yes</option><option value="0"<check if="{{ @POST.advance_payment == 0}}"><true> selected</true></check>>No</option></select></h4>
+  <h2>Password</h2>
+		<p>Leave blank to leave password. Fill out only if you want to change the user's password:</p>
+	  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2" for="password">{{ @i18n_password }}</label>
+        <div class="col-xs-12 col-sm-5"><input type="password" class="form-control" data-validation="pw_or_empty" name="password" id="password" />
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2" for="confirm">{{ @i18n_password_conf }}</label>
+        <div class="col-xs-12 col-sm-5"><input type="password" class="form-control" name="confirm" id="confirm" />
+        </div>
+	  </div>
+  </div><!-- /tab1 -->
+  <div id="tabs-2">
+  <h2>Invoice address</h2>
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="company">{{ @i18n_company }}</label>
+        <div class="col-sm-3"><input type="text" class="form-control" id="company" name="company" value="{{ @POST.company }}"  />
+		</div>
+	  
+        <label class="control-label col-sm-2" for="vat_nr">{{ @i18n_vat_nr }}</label>
+        <div class="col-sm-3"><input type="text" class="form-control" id="vat_nr" name="vat_nr" value="{{ @POST.vat_nr }}"  />
+		</div>
+	</div>
+	
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="last_name">{{ @i18n_last_name }}</label>
+        <div class="col-sm-3"><input type="text" class="form-control" name="last_name" value="{{ @POST.last_name }}" required />
+		</div>
+		<label class="control-label col-sm-2" for="first_name">{{ @i18n_first_name }}</label>
+		<div class="col-sm-3"><input type="text" class="form-control" name="first_name" value="{{ @POST.first_name }}" required />
+		</div>
+	</div>
+	
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="tel">{{ @i18n_telephone }}</label>
+        <div class="col-sm-3"><input type="text" class="form-control" name="tel" value="{{ @POST.tel }}" required />
+		</div>
+
+	</div>
+
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="address">{{ @i18n_address }}</label>
+        <div class="col-sm-5"><input type="text" class="form-control" id="address" name="address" value="{{ @POST.address }}" required />
+		</div>
+        <label class="control-label col-sm-1" for="address2">{{ @i18n_number }}</label>
+        <div class="col-sm-2"><input type="text" class="form-control" id="address2" name="address2" value="{{ @POST.address2 }}" required />
+		</div>
+	</div>
+	
+	<div class="form-group">  
+        <label class="control-label col-sm-2" for="zip">{{ @i18n_zip }}</label>
+        <div class="col-sm-2"><input type="text" class="form-control" data-validation="length"  data-validation-length="min4" id="zip" name="zip" value="{{ @POST.zip }}" required />
+		</div>
+        <label class="control-label col-sm-2" for="city">{{ @i18n_city }}</label>
+        <div class="col-sm-4"><input type="text" class="form-control" name="city" value="{{ @POST.city }}" required />
+		</div>	  
+	</div>
+
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="country">{{ @i18n_country }}</label>
+        <div class="col-sm-8">
+			<select name="country" class="form-control">
+<repeat group="{{ @i18n_ISO2 }}" key = "{{ @iso2 }}" value="{{ @country }}">
+			<option value="{{ @iso2 }}"<check if="{{ @POST.country === @iso2 }}"> <true>  selected</true></check>>{{ @country }}</option>		
+</repeat>
+			</select>
+		</div>
+	</div>
+	
+  </div><!-- /tab2 -->
+  <div id="tabs-3">
+  	
+  <h2>Shipping address</h2>
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="delivery_name">{{ @i18n_name }}</label>
+        <div class="col-sm-8"><input type="text" class="form-control" name="delivery_name" value="{{ @POST.delivery_name }}"  />
+		</div>
+	</div>
+	
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="delivery_address">{{ @i18n_address }}</label>
+        <div class="col-sm-5"><input type="text" class="form-control" id="delivery_address" name="delivery_address" value="{{ @POST.delivery_address }}"  />
+		</div>
+        <label class="control-label col-sm-1" for="delivery_address2">{{ @i18n_number }}</label>
+        <div class="col-sm-2"><input type="text" class="form-control" id="delivery_address2" name="delivery_address2" value="{{ @POST.delivery_address2 }}"  />
+		</div>
+	</div>
+	
+	<div class="form-group">  
+        <label class="control-label col-sm-2" for="delivery_zip">{{ @i18n_zip }}</label>
+        <div class="col-sm-2"><input type="text" class="form-control" data-validation="length"  data-validation-length="min4" id="delivery_zip" name="delivery_zip" value="{{ @POST.delivery_zip }}"  />
+		</div>
+        <label class="control-label col-sm-2" for="delivery_city">{{ @i18n_city }}</label>
+        <div class="col-sm-4"><input type="text" class="form-control" name="delivery_city" value="{{ @POST.delivery_city }}"  />
+		</div>	  
+	</div>
+
+	<div class="form-group">
+        <label class="control-label col-sm-2" for="delivery_country">{{ @i18n_country }}</label>
+        <div class="col-sm-8">
+			<select name="delivery_country" class="form-control">
+<repeat group="{{ @i18n_ISO2 }}" key = "{{ @iso2 }}" value="{{ @country }}">
+			<option value="{{ @iso2 }}"<check if="{{ @POST.delivery_country === @iso2 }}"> <true>  selected</true></check>>{{ @country }}</option>		
+</repeat>
+			</select>
+		</div>
+	</div>
+	
+  </div> <!-- /tab3 -->
+
+	<input type="hidden" name="session_csrf" value="{{ @CSRF }}" />
+
+	<div class="row form-group">
+		<div class="col-sm-offset-4 col-sm-6">
+				<input type="hidden" name="edit" value="edit" />
+				<input type="hidden" name="user_id" value="{{ @POST.id }}" />
+				<input type="hidden" name="pw" value="{{ @POST.password }}" />
+				<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> {{ @i18n_submit }}</button>
+		</div>
+	</div>
+
+</form>
+
+<h2>Orders</h2><div class="export btn-group"><button id="export_btn"class="btn btn-default" aria-label="export type" title="Export data" type="button"><i class="glyphicon glyphicon-export icon-share"></i> <span class="caret"></span></button></div>
+<table class="table table-bordered table-striped" id="list">
+	<thead>
+		<tr>
+			<th scope="col">date time</th>
+			<th scope="col">id</th>
+			<th scope="col">order_id</th>
+			<th scope="col">customer</th>
+			<th scope="col">total</th>
+		</tr>
+	</thead>
+
+	<repeat group="{{ @orders }}" value="{{ @order }}">
+		<tr onclick="window.document.location='admin/order/{{ @order.id }}';" style="cursor: pointer;">
+			<td>{{ @order.order_date }}</td>
+			<td>{{ @order.id }}</td>
+			<td>{{ @order.unique_order_id }}</td>
+			<td>{{ @order.last_name . " " . @order.last_name }}</td>
+			<td>{{ money_format('%(#1n', @order.order_price) }}</td>
+
+		</tr>
+	</repeat>
+</table>

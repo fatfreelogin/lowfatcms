@@ -1,0 +1,35 @@
+<main id="main" class="main-page">
+<div class="container">
+<div class="row justify-content-md-center">
+	<div class="col-12 ">
+<div class="actionlinks">
+	<a class="btn btn-info btn-lg" href="admin/users/new">new user</a>
+	
+</div>
+
+<h1 class="my-4">Users</h1>
+<table class="table table-hover table-striped table-bordered" id="list">
+	<thead>
+		<tr>
+			<th scope="col">username</th>
+			<th scope="col">email</th>
+			<th scope="col">type</th>
+			<th scope="col">activated</th>
+		</tr>
+	</thead>
+	<tbody>
+
+	<repeat group="{{ @users }}" value="{{ @user }}">
+		<tr onclick="window.document.location='{{ @adminpage }}/users/{{ @user.id }}';" style="cursor: pointer;">
+			<td>{{ @user.username }}</td>
+			<td>{{ @user.email }}</td>
+			<td><check if="{{ intval(@user.user_type) == 100 }}">Admin</check><check if="{{ intval(@user.user_type) == 1 }}">Standard user</check></td>
+			<td><check if="{{ intval(@user.activated)==1 }}"><true>yes</true><false>no</false></check></td>
+		</tr>
+	</repeat>
+	</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
