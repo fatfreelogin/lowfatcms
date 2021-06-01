@@ -1,7 +1,7 @@
 *.afphoto
 _db/etomite_update.sql
-app/viewmed*
-app/viewmed/*
-/app/viewmed/*
+app/viewsmed*
+app/viewsmed/*
+/app/viewsmed/*
 
-app/viewmed/main_nav_flex.htm
+app/viewsmed/main_nav_flex.htm

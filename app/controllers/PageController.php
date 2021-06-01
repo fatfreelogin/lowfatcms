@@ -186,10 +186,11 @@ class PageController extends Controller
 	*/
 	private function showGallery($content)
 	{
-		$out.=preg_replace_callback(
+		$out=preg_replace_callback(
 			"/\[\[gallery\?(.*?)\]\]/",
 			function ($m)
 			{
+				$mdimg="";
 				$modalid="g".rand(100,999); //pseudorandomstring to allow multiple modals on page
 				$f_out="<div class=\"row\" id=\"gallery\" data-toggle=\"modal\" data-target=\"#".$modalid."\">";
 				$img_array=explode(",", trim($m[1]));
@@ -332,10 +333,11 @@ class PageController extends Controller
 	
 	/**
 	* page /news.html
-	* list of all newsitems
+	* list of last $limit newsitems
 	*/
 	public function allnews()
 	{
+		$limit=5; //number of news items to show
 		$news = new News($this->db,$this->f3->get("table_prefix"));		
 		$this->f3->set('activemenulink',strtolower($this->f3->get("i18n_news")));
 

@@ -64,10 +64,8 @@ not allowed fields:
 	*/
 	public function getMenu()
 	{
-		/*$this->load('published=1 AND hidemenu=0',array('order'=>'menuindex ASC'));
-		return $this->query;*/
 		$sql="SELECT id, pagetitle, alias, parent, isfolder FROM ".$this->tableprefix."site_content WHERE published=1 AND hidemenu=0 ORDER BY menuindex ASC ";
-		$out=$this->db->exec($sql, array(':id'=>$id));
+		$out=$this->db->exec($sql);
 		
 		return $out;
 	}
@@ -133,10 +131,8 @@ not allowed fields:
 	
 	public function pages()
 	{
-		$result = $this->load();
-		if($this->dry()){return;}
-		$pages=$result->find(array('order'=>'hidemenu DESC, menuindex ASC'));
-		return $pages;
+		$this->load("",array('order'=>'hidemenu DESC, menuindex ASC'));
+		return $this->query;
 	}
 	
 	public function pages_with_parents($table_prefix)

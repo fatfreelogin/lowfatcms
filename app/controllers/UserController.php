@@ -3,6 +3,17 @@
 class UserController extends Controller 
 {
 	/**
+	* catch php 8 errors by setting page variables in beforeroute for all pages using this controller
+	* these are used in the templates
+	*/
+	public function beforeroute()
+	{
+		$this->f3->set('page_head','Login');
+		$this->f3->set('activemenulink','Login');
+		$this->f3->set('PARAMS.page_name','login');
+		parent::beforeroute();
+	}
+	/**
 	* check if password and confirmation ok
 	* @param	string $pw	password
 	* @param	string $confirm	password confirmation 
@@ -298,7 +309,8 @@ class UserController extends Controller
 	*/
 	public function login()
 	{
-		if( $this->f3->get('SESSION.logged_in')) {
+		if( $this->f3->get('SESSION.logged_in')) 
+		{
 			if($this->f3->get('SESSION.user_type')==100){
 				$this->f3->reroute('/'.$this->f3->get('adminpage'));	
 			}
@@ -336,14 +348,13 @@ class UserController extends Controller
 			}
 			if(!$loginsuccess)
 			{
-				$this->f3->set('page_head','Login');
 				$this->f3->set('view','user/login.htm');
 			}
 			else
 			{
 				$this->f3->set('SESSION.user_id', $user->id);
 				$user->login($user->id);
-				$this->f3->logger->write( "LOG IN: ".$this->f3->get('POST.username')." login success (ip: " .$ip .")", 'r');
+				$this->f3->logger->write( "LOG IN: ".$this->f3->get('POST.username')." login success", 'r');
 				$this->f3->set('SESSION.logged_in', 'true');
 				$this->f3->set('SESSION.timestamp', time());
 				if($this->f3->get('SESSION.user_type')==100){
@@ -360,7 +371,6 @@ class UserController extends Controller
 				$this->f3->set('info_msg',$this->f3->get('SESSION.info_msg'));
 				$this->f3->clear('SESSION.info_msg');
 			}
-			$this->f3->set('page_head','Login');
 			$this->f3->set('view','user/login.htm');
 		}
 

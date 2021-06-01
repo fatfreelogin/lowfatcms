@@ -275,7 +275,7 @@ class AdminController extends Controller
 	
 	public function edit_page()
 	{
-		$page_id=intval($this->f3->get('PARAMS.id')); //get page by pagename		
+		$page_id=intval($this->f3->get('PARAMS.id')); //get page by pagename
 		$prefix=$this->f3->get("table_prefix");
 
 		$metatags=new \MetaTags($this->db, $prefix);
@@ -345,6 +345,7 @@ class AdminController extends Controller
 	
 	public function show_chunk()
 	{
+		$prefix=$this->f3->get("table_prefix");
 		$chunk = new Chunk($this->db, $this->f3->get("table_prefix"));
 		if($this->f3->VERB=="POST")
 		{
