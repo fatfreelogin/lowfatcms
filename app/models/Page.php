@@ -59,6 +59,15 @@ not allowed fields:
 	}
 	
 	/**
+	* rss.xml
+	*/
+	public function rsspages()
+	{
+		$this->load('published=1 AND type="document"',array('order'=>'menuindex ASC'));
+		return $this->query;
+	}
+	
+	/**
 	* used in Controller beforeroute 
 	* get menulinks
 	*/
